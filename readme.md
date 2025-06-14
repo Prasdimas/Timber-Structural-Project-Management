@@ -7,9 +7,9 @@
 * The full brief about the project can be found here [Brief](https://honeysuckle-paneer-19b.notion.site/Skill-Test-Feature-Team-208eb56ecde880139e5dfcbdaa40ab4a).
 
 ### Feature List 
-- [ ] CRUD Projects
-- [ ] CRUD Building Part inside Projects
-- [ ] User only sees their own projects and parts
+- [x] CRUD Projects
+- [x] CRUD Building Part inside Projects
+- [x] User only sees their own projects and parts
 
 
 ### Design File
@@ -36,4 +36,4 @@ Any other useful feature will be respected.
 The deadline for this assignment is 3 days from the date you receive the email about this assignment. Please ensure you complete the assignment within this timeframe.
 
 ### Demo
-Please attach a demo video or a live project link here. (Update this section when you submit your assignment)
+Demo Video: https://youtu.be/8lilK9d36C8

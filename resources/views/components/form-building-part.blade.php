@@ -43,6 +43,9 @@
                 get suppliers() {
                     return Alpine.store('projectData')?.suppliers || [];
                 },
+                get partTypes() {
+                    return Alpine.store('projectData')?.suppliers || [];
+                },
 
                 /**
                  * Return valid materials based on the selected building part type.
@@ -107,7 +110,6 @@
                 {{ $buildingPart ? 'Edit Building Part' : 'Add Building Part' }}
             @endif
         </h2>
-
         {{-- Name Input --}}
         <div>
             <x-input-label for="bp-name" :value="__('Name')" />
@@ -127,7 +129,7 @@
                     @change="syncMaterial()">
                 <option value="" disabled>-- Select Part Type --</option>
                 <template x-for="opt in ['floor','wall','beam','column']" :key="opt">
-                    <option :value="opt" x-text="opt.charAt(0).toUpperCase()+opt.slice(1)"></option>
+                    <option :value="opt" x-text="opt.charAt(0).toUpperCase()+opt.slice(1)"  :selected="form.partType === opt"></option>
                 </template>
             </select>
             <x-input-error class="mt-2" x-show="!readonly" :messages="$bag->get('building_part_type')" />
@@ -142,26 +144,27 @@
                     x-model="form.material">
                 <option value="" disabled>-- Select Material --</option>
                 <template x-for="mat in materials" :key="mat">
-                    <option :value="mat" x-text="mat"></option>
+                    <option :value="mat" x-text="mat" :selected="form.material === mat"></option>
                 </template>
             </select>
             <x-input-error class="mt-2" x-show="!readonly" :messages="$bag->get('material_type')" />
         </div>
 
         {{-- Supplier Dropdown --}}
-        <div>
-            <x-input-label for="bp-supplier" :value="__('Supplier')" />
-            <select id="bp-supplier" name="supplier_name" :disabled="readonly"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring
-                           focus:ring-green-200 focus:ring-opacity-50"
-                    x-model="form.supplier">
-                <option value="" disabled>-- Select Supplier --</option>
-                <template x-for="sup in filteredSuppliers" :key="sup.id">
-                    <option :value="sup.name" x-text="sup.name"></option>
-                </template>
-            </select>
-            <x-input-error class="mt-2" x-show="!readonly" :messages="$bag->get('supplier_name')" />
-        </div>
+<div>
+    <x-input-label for="bp-supplier" :value="__('Supplier')" />
+    <select id="bp-supplier" name="supplier_name"
+            :disabled="readonly || !form.material"
+            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring
+                   focus:ring-green-200 focus:ring-opacity-50"
+            x-model="form.supplier">
+        <option value="" disabled>-- Select Supplier --</option>
+        <template x-for="sup in filteredSuppliers" :key="sup.id">
+            <option :value="sup.name" x-text="sup.name" :selected="form.supplier === sup.name"></option>
+        </template>
+    </select>
+    <x-input-error class="mt-2" x-show="!readonly" :messages="$bag->get('supplier_name')" />
+</div>
 
         {{-- Action Buttons --}}
         <div class="flex justify-end gap-2">
